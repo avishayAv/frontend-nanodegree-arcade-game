@@ -6,6 +6,15 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    
+    //Initiate starting position of an enemy.
+    //X - has to be 0 (left side of the screen);
+    //Y - has to be between 1 and 3 (for each row in the stone)
+    this.x = 0;
+    this.y = Math.floor((Math.random() * 3) + 1);
+
+    //Initiate speed between 1 and 5. 1-slowest.
+    this.speed = Math.floor((Math.random() * 5) + 1);
 };
 
 // Update the enemy's position, required method for game
@@ -14,11 +23,14 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+
+    //I should change the x value according to the speed
+    this.x = this.x + this.speed;
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y * 75);
 };
 
 // Now write your own player class
@@ -30,7 +42,11 @@ Enemy.prototype.render = function() {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-
+var Enemy1 = new Enemy();
+var Enemy2 = new Enemy();
+var Enemy3 = new Enemy();
+var Enemy4 = new Enemy();
+allEnemies = [Enemy1, Enemy2, Enemy3, Enemy4];
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

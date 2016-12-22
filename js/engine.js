@@ -79,6 +79,7 @@ var Engine = (function(global) {
      * on the entities themselves within your app.js file).
      */
     function update(dt) {
+        //update entities should be comment out when its ready
         updateEntities(dt);
         // checkCollisions();
     }
@@ -90,11 +91,14 @@ var Engine = (function(global) {
      * the data/properties related to the object. Do your drawing in your
      * render methods.
      */
+
+     
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
+        //needs to be comment out once player class is ready
+        //player.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -150,8 +154,8 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
-
-        player.render();
+        //needs to be comment out once player class is ready
+        //player.render();
     }
 
     /* This function does nothing but it could have been a good place to
