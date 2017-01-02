@@ -64,7 +64,7 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        reset();
+        //reset();
         lastTime = Date.now();
         main();
     }
@@ -81,7 +81,7 @@ var Engine = (function(global) {
     function update(dt) {
         //update entities should be comment out when its ready
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -98,6 +98,27 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+    }
+
+    /*this function is called for each dt and checks if there's collisions between enemy and player*/
+    function checkCollisions(dt)  {
+        //allEnemiesCordinate should be an array of all the enemies' cordinates
+        var allEnemiesCordinate = [];
+        for(var i=0; i<allEnemies.length; i++)  {
+            allEnemiesCordinate.push({
+                xPos: Math.floor((allEnemies[i].x+50)/101),
+                yPos: allEnemies[i].y
+            });
+        }
+        //go over allEnemiesCordinate and check if one of them is exactly like the player
+        var playerXPos = player.x;
+        var playerYPos = Math.floor(player.y);
+        for(var j=0; j<allEnemiesCordinate.length; j++) {
+            if ((playerXPos == allEnemiesCordinate[j].xPos) && (playerYPos == allEnemiesCordinate[j].yPos)) {
+                alert("Oops");
+                reset();
+            }
+        }
     }
 
     /* This function initially draws the "game level", it will then call
@@ -161,7 +182,7 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+        location.reload();
     }
 
     /* Go ahead and load all of the images we know we're going to need to

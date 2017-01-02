@@ -10,7 +10,7 @@ var Enemy = function() {
     this.sprite = 'images/enemy-bug.png';
     this.x = 0;
     this.y = Math.floor((Math.random() * 3) + 1);
-    this.speed = Math.floor((Math.random() * 5) + 1);
+    this.speed = Math.floor((Math.random() * 2) + 1);
 };
 
 // Update enemy's position every dt, time delta between ticks-ensures the game runs the same speed for all PC's
