@@ -40,7 +40,7 @@ var Engine = (function(global) {
          * computer is) - hurray time!
          */
         var now = Date.now(),
-            dt = (now - lastTime) / 1000.0;
+            dt = (now - lastTime) / 100.0;
 
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
@@ -102,6 +102,7 @@ var Engine = (function(global) {
 
     /*this function is called for each dt and checks if there's collisions between enemy and player*/
     function checkCollisions(dt)  {
+        
         //allEnemiesCordinate should be an array of all the enemies' cordinates
         var allEnemiesCordinate = [];
         for(var i=0; i<allEnemies.length; i++)  {
@@ -110,6 +111,7 @@ var Engine = (function(global) {
                 yPos: allEnemies[i].y
             });
         }
+
         //go over allEnemiesCordinate and check if one of them is exactly like the player
         var playerXPos = player.x;
         var playerYPos = Math.floor(player.y);
@@ -175,6 +177,7 @@ var Engine = (function(global) {
             enemy.render();
         });
         player.render();
+        player.checkWin();
     }
 
     /* This function does nothing but it could have been a good place to

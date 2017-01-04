@@ -38,13 +38,49 @@ var Player = function() {
 
 // Update player's position every dt, time delta between ticks-ensures the game runs the same speed for all PC's
 Player.prototype.update = function(dt) {
-    this.y = this.y - 0.02;
+    //not sure what todo with this function yet
+
 };
+
+Player.prototype.checkWin = function()  {
+    if (this.y == 0)    {
+        alert("Congrats");
+        this.reset();
+    }
+}
 
 // Draw the Player on the screen
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x * 101, this.y * 75);
 };
+
+Player.prototype.handleInput = function(side) {
+    if (side == "left") {
+        if (this.x > 0)     {
+            this.x = this.x - 1;
+        }
+    }
+    if (side == "right") {
+        if (this.x < 4)     {
+            this.x = this.x + 1;
+        }
+    }
+    if (side == "up") {
+        if (this.y > 0)     {
+            this.y = this.y - 1;
+        }
+    }
+    if (side == "down") {
+        if (this.y < 5)     {
+            this.y = this.y + 1;
+        }
+    }
+}
+
+Player.prototype.reset = function() {
+    this.x = 2;
+    this.y = 4;
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -60,12 +96,13 @@ var player = new Player();
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
+
     var allowedKeys = {
         37: 'left',
         38: 'up',
         39: 'right',
         40: 'down'
     };
-    //needs to be comment out when handleInput is implemented
-    //player.handleInput(allowedKeys[e.keyCode]);
+
+    player.handleInput(allowedKeys[e.keyCode]);
 });
