@@ -91,13 +91,19 @@ var Engine = (function(global) {
      * the data/properties related to the object. Do your drawing in your
      * render methods.
      */
-
-     
+ 
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
         player.update();
+        
+        //isNewEnemy is an integer between 1-30. if it's exactly a certain number - new enemy will be added
+        //the level of the game can be changed by changing the numbers here.
+        var isNewEnemy = Math.floor((Math.random() * 30) + 1);
+        if (isNewEnemy == 3)    {
+            enemiesTasker();
+        }
     }
 
     /*this function is called for each dt and checks if there's collisions between enemy and player*/
@@ -118,9 +124,16 @@ var Engine = (function(global) {
         for(var j=0; j<allEnemiesCordinate.length; j++) {
             if ((playerXPos == allEnemiesCordinate[j].xPos) && (playerYPos == allEnemiesCordinate[j].yPos)) {
                 alert("Oops");
+                console.log(allEnemiesCordinate[j]);
                 reset();
             }
         }
+    }
+
+    /*this function is responsible to send enemies to the array during the game*/
+    function enemiesTasker()    {
+        newEnemy = new Enemy();
+        allEnemies.push(newEnemy);
     }
 
     /* This function initially draws the "game level", it will then call

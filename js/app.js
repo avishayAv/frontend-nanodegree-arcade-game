@@ -42,6 +42,7 @@ Player.prototype.update = function(dt) {
 
 };
 
+//checks if the player reached to y=0, means that he won the game. if so - msg and reset.
 Player.prototype.checkWin = function()  {
     if (this.y == 0)    {
         alert("Congrats");
@@ -54,6 +55,8 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x * 101, this.y * 75);
 };
 
+//this functions receives the user input and move the player character accordingly
+//checks if the move is valid (will not move the player off the screen)
 Player.prototype.handleInput = function(side) {
     if (side == "left") {
         if (this.x > 0)     {
@@ -77,6 +80,7 @@ Player.prototype.handleInput = function(side) {
     }
 }
 
+//reset function - works in case that the player won.
 Player.prototype.reset = function() {
     this.x = 2;
     this.y = 4;
