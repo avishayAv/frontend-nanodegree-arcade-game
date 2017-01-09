@@ -45,6 +45,7 @@ Player.prototype.update = function(dt) {
 //checks if the player reached to y=0, means that he won the game. if so - msg and reset.
 Player.prototype.checkWin = function()  {
     if (this.y == 0)    {
+        this.render();
         alert("Congrats");
         this.reset();
     }
@@ -72,6 +73,7 @@ Player.prototype.handleInput = function(side) {
         if (this.y > 0)     {
             this.y = this.y - 1;
         }
+        player.checkWin();
     }
     if (side == "down") {
         if (this.y < 5)     {

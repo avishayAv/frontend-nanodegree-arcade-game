@@ -93,9 +93,16 @@ var Engine = (function(global) {
      */
  
     function updateEntities(dt) {
-        allEnemies.forEach(function(enemy) {
-            enemy.update(dt);
-        });
+        //responsible for update the X properties of all the enemies.
+        //if x>550 - enemy should be removed from the array since it's no longer on the screen
+        for (var i=0; i<allEnemies.length; i++) {
+            allEnemies[i].update(dt);
+            if (allEnemies[i].x > 550)  {
+                allEnemies.splice(i, 1);
+            }
+        }
+
+        //"update" player method is empty for now - input is handled in "handleInput" method.
         player.update();
         
         //isNewEnemy is an integer between 1-30. if it's exactly a certain number - new enemy will be added
@@ -121,10 +128,10 @@ var Engine = (function(global) {
         //go over allEnemiesCordinate and check if one of them is exactly like the player
         var playerXPos = player.x;
         var playerYPos = Math.floor(player.y);
+        var isAlreadyCollision = player.isAlreadyCollision
         for(var j=0; j<allEnemiesCordinate.length; j++) {
             if ((playerXPos == allEnemiesCordinate[j].xPos) && (playerYPos == allEnemiesCordinate[j].yPos)) {
                 alert("Oops");
-                console.log(allEnemiesCordinate[j]);
                 reset();
             }
         }
@@ -190,7 +197,6 @@ var Engine = (function(global) {
             enemy.render();
         });
         player.render();
-        player.checkWin();
     }
 
     /* This function does nothing but it could have been a good place to
