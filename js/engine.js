@@ -132,7 +132,7 @@ var Engine = (function(global) {
         for(var j=0; j<allEnemiesCordinate.length; j++) {
             if ((playerXPos == allEnemiesCordinate[j].xPos) && (playerYPos == allEnemiesCordinate[j].yPos)) {
                 alert("Oops");
-                reset();
+                player.reset();
             }
         }
     }
@@ -204,7 +204,7 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        location.reload();
+   
     }
 
     /* Go ahead and load all of the images we know we're going to need to

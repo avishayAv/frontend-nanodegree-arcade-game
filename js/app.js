@@ -39,7 +39,6 @@ var Player = function() {
 // Update player's position every dt, time delta between ticks-ensures the game runs the same speed for all PC's
 Player.prototype.update = function(dt) {
     //not sure what todo with this function yet
-
 };
 
 //checks if the player reached to y=0, means that he won the game. if so - msg and reset.
@@ -82,7 +81,7 @@ Player.prototype.handleInput = function(side) {
     }
 }
 
-//reset function - works in case that the player won.
+//reset function - works in case that the player won or lost.
 Player.prototype.reset = function() {
     this.x = 2;
     this.y = 4;
