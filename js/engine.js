@@ -132,6 +132,7 @@ var Engine = (function(global) {
         for(var j=0; j<allEnemiesCordinate.length; j++) {
             if ((playerXPos == allEnemiesCordinate[j].xPos) && (playerYPos == allEnemiesCordinate[j].yPos)) {
                 alert("Oops");
+                player.updateScore(false);     //responsible to update the player's score
                 player.reset();
             }
         }

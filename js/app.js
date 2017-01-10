@@ -28,12 +28,14 @@ Enemy.prototype.render = function() {
 /* Properties :
 -sprite:players's image
 -x:the x location of a player (default-2=center, has to be between 0 and 4).
--y:the y location of an enemy (default-4=top of grass, has to be between 0 and 5). */
+-y:the y location of an enemy (default-4=top of grass, has to be between 0 and 5).
+-score:the score of the playet. gets 1 for each win and lost 1 for each collision */
 
 var Player = function() {
     this.sprite = 'images/char-boy.png';
     this.x = 2;
     this.y = 4;
+    this.score = 0;
 }
 
 // Update player's position every dt, time delta between ticks-ensures the game runs the same speed for all PC's
@@ -46,6 +48,7 @@ Player.prototype.checkWin = function()  {
     if (this.y == 0)    {
         this.render();
         alert("Congrats");
+        this.updateScore(true);     //responsible to update the player's score
         this.reset();
     }
 }
@@ -85,6 +88,18 @@ Player.prototype.handleInput = function(side) {
 Player.prototype.reset = function() {
     this.x = 2;
     this.y = 4;
+}
+
+//works in case of win/lose - player's score changes accordingly
+Player.prototype.updateScore = function(isWon)   {
+    if (isWon)  {
+        this.score = this.score + 1;
+    }
+    else    {
+        if (this.score > 0) {
+            this.score = this.score - 1;
+        }
+    }
 }
 
 // Now instantiate your objects.
