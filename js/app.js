@@ -100,6 +100,7 @@ Player.prototype.updateScore = function(isWon)   {
             this.score = this.score - 1;
         }
     }
+    document.getElementById("score").innerHTML = "Score: "+this.score;
 }
 
 // Now instantiate your objects.

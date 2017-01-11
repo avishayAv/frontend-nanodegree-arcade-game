@@ -128,7 +128,6 @@ var Engine = (function(global) {
         //go over allEnemiesCordinate and check if one of them is exactly like the player
         var playerXPos = player.x;
         var playerYPos = Math.floor(player.y);
-        var isAlreadyCollision = player.isAlreadyCollision
         for(var j=0; j<allEnemiesCordinate.length; j++) {
             if ((playerXPos == allEnemiesCordinate[j].xPos) && (playerYPos == allEnemiesCordinate[j].yPos)) {
                 alert("Oops");

@@ -1,3 +1,12 @@
 body {
     text-align: center;
 }
+
+p {
+   position: absolute; 
+   top: 500px; 
+   left: 0; 
+   width: 100%;
+   font-family: tahoma;
+   font-size: 16px; 
+}
