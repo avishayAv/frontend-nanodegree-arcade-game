@@ -107,7 +107,7 @@ var Engine = (function(global) {
         
         //isNewEnemy is an integer between 1-30. if it's exactly a certain number - new enemy will be added
         //the level of the game can be changed by changing the numbers here.
-        var isNewEnemy = Math.floor((Math.random() * 30) + 1);
+        var isNewEnemy = Math.floor((Math.random() * 200) + 1);
         if (isNewEnemy == 3)    {
             enemiesTasker();
         }
@@ -181,7 +181,6 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-
         renderEntities();
     }
 
@@ -197,6 +196,18 @@ var Engine = (function(global) {
             enemy.render();
         });
         player.render();
+        star.render();
+
+        //isNewEnemy is an integer between 1-30. if it's exactly a certain number - new enemy will be added
+        //the level of the game can be changed by changing the numbers here.
+        var isNewStar = Math.floor((Math.random() * 120) + 1);
+        if (isNewStar == 3)    {
+            starTasker();
+        }
+    }
+
+    function starTasker()  {
+        star.locate();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -216,7 +227,8 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Star.png'
     ]);
     Resources.onReady(init);
 

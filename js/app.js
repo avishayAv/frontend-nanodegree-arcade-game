@@ -13,14 +13,50 @@ var Enemy = function() {
     this.speed = Math.floor((Math.random() * 2) + 1);
 };
 
-// Update enemy's position every dt, time delta between ticks-ensures the game runs the same speed for all PC's
+//Update enemy's position every dt, time delta between ticks-ensures the game runs the same speed for all PC's
 Enemy.prototype.update = function(dt) {
     this.x = this.x + this.speed;
 };
 
-// Draw the enemy on the screen
+//Draw the enemy on the screen
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y * 75);
+};
+
+/* Class Star */
+
+/* Properties :
+-sprite:star's image
+-x:the x location of a star (randomized between 0 and 4)
+-y:the y location of a star (randomized between 1 and 3)*/
+
+var Star = function() {
+    this.sprite = 'images/Star.png';
+    this.x = 0
+    this.y = 0
+}
+
+//Draw the star on the screen in case that x and y are different than 0
+Star.prototype.render = function() {
+    if ((this.x!=0)&&(this.y!=0))    {
+        ctx.drawImage(Resources.get(this.sprite), this.x * 101, this.y * 75);
+    }
+};
+
+//this function should be called once in a few seconds in order to relocate the star
+Star.prototype.locate = function() {
+    //if x and y are 0 - there's actually no new star on the screen
+    //isStar is responsible for the odds.
+    var isStar = Math.floor((Math.random() * 3) + 1);
+    if (isStar == 2)    {
+        this.x = Math.floor(Math.random() * 5);
+        this.y = Math.floor((Math.random() * 3) + 1);
+    }
+    else    {
+        this.x = 0;
+        this.y = 0;
+    }
+    
 };
 
 /* Class Player */
@@ -38,7 +74,7 @@ var Player = function() {
     this.score = 0;
 }
 
-// Update player's position every dt, time delta between ticks-ensures the game runs the same speed for all PC's
+//Update player's position every dt, time delta between ticks-ensures the game runs the same speed for all PC's
 Player.prototype.update = function(dt) {
     //not sure what todo with this function yet
 };
@@ -53,7 +89,7 @@ Player.prototype.checkWin = function()  {
     }
 }
 
-// Draw the Player on the screen
+//Draw the Player on the screen
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x * 101, this.y * 75);
 };
@@ -82,6 +118,19 @@ Player.prototype.handleInput = function(side) {
             this.y = this.y + 1;
         }
     }
+
+    //responsible to check if the player has collected the star.
+    this.checkCollisionWithStar();
+}
+
+//responsible to check if the player and the star are on the same spot.
+//if so - score should be increased by 1.
+Player.prototype.checkCollisionWithStar = function()    {
+    if ((this.x == star.x)&&(this.y == star.y)) {
+        star.x = 0;
+        star.y = 0;
+        this.updateScore(true);
+    }
 }
 
 //reset function - works in case that the player won or lost.
@@ -91,6 +140,7 @@ Player.prototype.reset = function() {
 }
 
 //works in case of win/lose - player's score changes accordingly
+//should handle collecting star like won
 Player.prototype.updateScore = function(isWon)   {
     if (isWon)  {
         this.score = this.score + 1;
@@ -103,9 +153,9 @@ Player.prototype.updateScore = function(isWon)   {
     document.getElementById("score").innerHTML = "Score: "+this.score;
 }
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+//Now instantiate your objects.
+//Place all enemy objects in an array called allEnemies
+//Place the player object in a variable called player
 
 var Enemy1 = new Enemy();
 var Enemy2 = new Enemy();
@@ -113,9 +163,10 @@ var Enemy3 = new Enemy();
 var Enemy4 = new Enemy();
 allEnemies = [Enemy1, Enemy2, Enemy3, Enemy4];
 var player = new Player();
+var star =new Star();
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+//This listens for key presses and sends the keys to your
+//Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
 
     var allowedKeys = {
